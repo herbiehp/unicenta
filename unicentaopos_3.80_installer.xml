@@ -1,0 +1,253 @@
+<project>
+    <shortName>unicentaopos</shortName>
+    <fullName>uniCenta oPOS</fullName>
+    <version>3.80</version>
+    <readmeFile>README</readmeFile>
+    <licenseFile>licensing/uniCenta oPOS Notice.txt</licenseFile>
+    <leftImage>v_logo_dark.png</leftImage>
+    <logoImage>unicentaopos.png</logoImage>
+    <splashImage>uniCenta_splash_dark.png</splashImage>
+    <wmImage>unicentaopos.png</wmImage>
+    <allowLanguageSelection>1</allowLanguageSelection>
+    <componentList>
+        <component>
+            <name>default</name>
+            <description>Default Component</description>
+            <canBeEdited>1</canBeEdited>
+            <selected>1</selected>
+            <show>1</show>
+            <desktopShortcutList>
+                <shortcut>
+                    <comment>uniCenta oPOS - Touch Friendly Point Of Sale</comment>
+                    <exec>sh ${installdir}/start.sh</exec>
+                    <icon>${installdir}/unicentaopos.png</icon>
+                    <name>uniCenta oPOS</name>
+                    <path>${installdir}</path>
+                    <platforms>windows</platforms>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/start.bat</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>${installdir}/unicentaopos.ico</windowsIcon>
+                    <windowsPath>${installdir}</windowsPath>
+                </shortcut>
+            </desktopShortcutList>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfiles</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>reports</origin>
+                        </distributionDirectory>
+                        <distributionDirectory>
+                            <origin>locales</origin>
+                        </distributionDirectory>
+                        <distributionDirectory>
+                            <origin>licensing</origin>
+                        </distributionDirectory>
+                        <distributionDirectory>
+                            <origin>lib</origin>
+                        </distributionDirectory>
+                        <distributionDirectory>
+                            <origin>Bonus</origin>
+                        </distributionDirectory>
+                        <distributionFile>
+                            <origin>start.bat</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>Migrate.bat</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>configure.bat</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>ResetSeq.bat</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>dist/unicentaopos.jar</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>uniCenta_splash_dark.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>unicentaopos.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>unicentaopos.ico</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>unicentaopos.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>window.logo.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>newtext.txt</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>README_Locales.txt</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>Release Notes/RN_380.txt</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>README</origin>
+                        </distributionFile>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+            <startMenuShortcutList>
+                <startMenuShortcut>
+                    <comment>Touch Friendly Point Of Sale</comment>
+                    <name>uniCenta oPOS</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/start.bat</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>${installdir}/unicentaopos.ico</windowsIcon>
+                    <windowsPath>${installdir}</windowsPath>
+                </startMenuShortcut>
+                <startMenuShortcut>
+                    <comment>Configure uniCenta oPOS</comment>
+                    <name>uniCenta oPOS configuration</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/configure.bat</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>${installdir}/unicentaopos.ico</windowsIcon>
+                    <windowsPath>${installdir}</windowsPath>
+                </startMenuShortcut>
+                <startMenuShortcut>
+                    <comment>Uninstall ${product_fullname}</comment>
+                    <name>Uninstall ${product_fullname}</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/${uninstallerName}.exe</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon></windowsIcon>
+                    <windowsPath>${installdir}/</windowsPath>
+                </startMenuShortcut>
+                <startMenuFileShortcut>
+                    <comment>Documents and images</comment>
+                    <filePath>${installdir}/Bonus</filePath>
+                    <name>Extras</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsIcon></windowsIcon>
+                </startMenuFileShortcut>
+                <startMenuFileShortcut>
+                    <comment>Language Locales</comment>
+                    <filePath>${installdir}/locales</filePath>
+                    <name>Locales</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsIcon></windowsIcon>
+                </startMenuFileShortcut>
+            </startMenuShortcutList>
+        </component>
+    </componentList>
+    <preInstallationActionList>
+        <autodetectJava>
+            <abortOnError>0</abortOnError>
+            <customErrorMessage>Java JRE not found on your machine. Install the correct Java JRE runtime and then continue with install.</customErrorMessage>
+            <explanation>Checking for Java JRE</explanation>
+            <progressText>Searching....</progressText>
+            <promptUser>1</promptUser>
+            <selectionOrder>newest</selectionOrder>
+            <onErrorActionList>
+                <showInfo>
+                    <explanation>When done...
+Please use the JRE 1.7 version located in your Windows\System32</explanation>
+                    <text>Couldn't find Java JRE runtime on your machine!
+Opening the Java website for you
+
+Install the correct Java JRE runtime for your machine
+
+Then continue with uniCenta oPOS installation.</text>
+                </showInfo>
+                <launchBrowser>
+                    <url>http://www.java.com</url>
+                </launchBrowser>
+            </onErrorActionList>
+            <validVersionList>
+                <validVersion>
+                    <bitness></bitness>
+                    <maxVersion>1.7</maxVersion>
+                    <minVersion>1.7</minVersion>
+                    <requireJDK>0</requireJDK>
+                    <vendor>sun</vendor>
+                </validVersion>
+            </validVersionList>
+        </autodetectJava>
+    </preInstallationActionList>
+    <description>uniCenta oPOS - Touch Friendly Point of Sale</description>
+    <enableRollback>1</enableRollback>
+    <enableTimestamp>1</enableTimestamp>
+    <licenseFileEncoding>utf-8</licenseFileEncoding>
+    <nativePackageName>uniCenta oPOS</nativePackageName>
+    <outputDirectory>installers</outputDirectory>
+    <productComments>uniCenta oPOS Touch Friendly Point of Sale</productComments>
+    <productContact>info@unicenta.com</productContact>
+    <productUrlHelpLink>http://www.unicenta.com</productUrlHelpLink>
+    <productUrlInfoAbout>http://www.unicenta.com</productUrlInfoAbout>
+    <readmeFileEncoding>utf-8</readmeFileEncoding>
+    <release>3.80</release>
+    <requireInstallationByRootUser>1</requireInstallationByRootUser>
+    <saveRelativePaths>1</saveRelativePaths>
+    <splashScreenDelay>4</splashScreenDelay>
+    <summary>POS</summary>
+    <vendor>uniCenta</vendor>
+    <windowsExecutableIcon>unicentaopos.ico</windowsExecutableIcon>
+    <windowsResourceComments>uniCenta oPOS is free software licensed under GNU GPL 3</windowsResourceComments>
+    <windowsResourceFileDescription>uniCenta oPOS executable</windowsResourceFileDescription>
+    <windowsResourceFileVersion>3.80</windowsResourceFileVersion>
+    <windowsResourceInternalName>uniCenta oPOS</windowsResourceInternalName>
+    <windowsResourceLegalTrademarks>uniCenta and uniCenta oPOS are trademarks of uniCenta Limited</windowsResourceLegalTrademarks>
+    <windowsUninstallerExecutableIcon>unicentaopos.ico</windowsUninstallerExecutableIcon>
+    <parameterList>
+        <directoryParameter>
+            <name>installdir</name>
+            <description>Installer.Parameter.installdir.description</description>
+            <explanation>Installer.Parameter.installdir.explanation</explanation>
+            <value>${platform_install_prefix}/${product_shortname}-${product_version}</value>
+            <default>${platform_install_prefix}/${product_shortname}-${product_version}</default>
+            <allowEmptyValue>0</allowEmptyValue>
+            <ask>yes</ask>
+            <cliOptionName>prefix</cliOptionName>
+            <mustBeWritable>yes</mustBeWritable>
+            <mustExist>0</mustExist>
+            <width>30</width>
+        </directoryParameter>
+    </parameterList>
+    <platformOptionsList>
+        <platformOptions>
+            <description>uniCenta oPOS - Touch Friendly Point Of Sale</description>
+            <platform>debian</platform>
+            <release>1</release>
+            <summary>POS</summary>
+            <vendor>uniCenta</vendor>
+        </platformOptions>
+        <platformOptions>
+            <platform>windows</platform>
+        </platformOptions>
+        <platformOptions>
+            <platform>linux</platform>
+        </platformOptions>
+    </platformOptionsList>
+    <readmeFileList>
+        <readmeFile>
+            <code>en</code>
+            <encoding>utf-8</encoding>
+            <file>README</file>
+        </readmeFile>
+    </readmeFileList>
+    <slideShowImageList>
+        <slideShowImage>
+            <path>uniCenta_logo_500_222.png</path>
+        </slideShowImage>
+    </slideShowImageList>
+</project>
+

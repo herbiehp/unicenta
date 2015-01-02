@@ -1,0 +1,23 @@
+03 November 2014
+Release: v3.81
+
+********* KNOWN ISSUES *********
+1.  There is a known issue with HSQLDB 2.+ JDBC driver which does not handle BLOB
+    (Categories, Products, Customers, People) correctly
+    It causes an error when loading Sales panel - Clicking OK allows you to
+    continue seemingly with no adverse effect
+    Adding Images to (Categories, Products, Customers, People) forms is affected.
+Suggestion: avoid use of HSQLDB database or revert to older 1.8 driver
+
+********************************
+
+1.  Bug: Ticket numbers incrementing incorrectly on Derby DB
+    Fix: Reverted back to Derby driver : 10.10.2
+2.  Bug: Error in UpdateRecord for CSV Import
+    Fix: Java class updated accordingly.
+
+
+
+
+
+

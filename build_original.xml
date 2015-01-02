@@ -1,0 +1,584 @@
+<?xml version="1.0"?>
+<!-- 
+    uniCenta oPOS - Touch Friendly Point of Sale.
+    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+    http://sourceforge.net/projects/unicentaopos
+
+    This file is part of uniCenta oPOS.
+
+    uniCenta oPOS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    uniCenta oPOS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<project name="unicentaopos" basedir="." default="dist">
+    <!-- ================================================================= -->
+    <!-- P R O P E R T I E S                                               -->
+    <!-- ================================================================= -->
+    <!-- program name -->
+    <property name="name" value="unicentaopos"/>
+    <!-- project version -->
+    <property name="version" value="3.01"/>
+    <!-- javac properties -->
+    <property name="javac.deprecation" value="off"/>
+    <property name="javac.optimize" value="on"/>
+    <property name="javac.debug" value="off"/>
+    <property name="javac.minVMVersion" value="1.6"/>
+    <!-- read in property files -->
+    <property file="build.properties" />
+    <property name="src.pos" value="${basedir}/src-pos"/>
+    <property name="src.data" value="${basedir}/src-data"/>
+    <property name="src.beans" value="${basedir}/src-beans"/>
+<!--    <property name="src.erp" value="${basedir}/src-erp"/> -->
+    <property name="reports" value="${basedir}/reports"/>
+    <property name="locales" value="${basedir}/locales"/>
+<!--    <property name="src.pda" value="${basedir}/src-pda"/> -->
+<!--    <property name="src.web" value="${basedir}/web"/> -->
+<!--    <property name="jetty.lib" value="${basedir}/jetty/lib"/> -->
+    <property name="lib" value="${basedir}/lib"/>
+
+    <!-- the jar directory -->
+    <property name="dest.jar" value="${basedir}/build/jar"/>
+<!--    <property name="dest.war" value="${basedir}/build/war"/> -->
+    <!-- where the class files go -->
+    <property name="dest.classes" value="${basedir}/build/classes"/>
+    <!-- where the distribution files go -->
+    <property name="dest.dist" value="${basedir}/build/dist"/>
+    <!-- where the installers go -->
+    <property name="dest.installer.pos" value="${basedir}/build/installerpos"/>
+<!--    <property name="dest.installer.pda" value="${basedir}/build/installerpda"/> -->
+
+    <!-- ================================================================= -->
+    <!-- I N I T                                                           -->
+    <!-- ================================================================= -->
+    <target name="init.classes">
+        <delete dir="${dest.classes}" />
+    </target>
+
+    <target name="init.jar">
+        <delete dir="${dest.jar}" />
+    </target>
+
+<!--    <target name="init.war"> 
+        <delete dir="${dest.war}" />
+    </target> -->
+
+    <target name="init.dist">
+        <delete dir="${dest.dist}" />
+    </target>
+
+    <target name="init.installer.pos">
+        <delete dir="${dest.installer.pos}" />
+    </target>
+
+<!--    <target name="init.installer.pda">
+	    <mkdir dir="${dest.installer.pda}" />
+    </target> -->
+
+    <!-- ================================================================= -->
+    <!-- C O M P I L E                                                     -->
+    <!-- ================================================================= -->
+    <target name="compilebeans" depends="init.classes">
+        <mkdir dir="${dest.classes}/beans" />
+        <javac srcdir="${src.beans}"
+               destdir="${dest.classes}/beans"
+               debug="${javac.debug}"
+               deprecation="${javac.deprecation}"
+               optimize="${javac.optimize}"
+               target="${javac.minVMVersion}">
+        </javac>
+        <copy todir="${dest.classes}/beans">
+            <fileset dir="${src.beans}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/*.form"/>
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy>                
+    </target>
+    <target name="compiledata" depends="init.classes,compilebeans">
+        <mkdir dir="${dest.classes}/data" />
+        <javac srcdir="${src.data}"
+               destdir="${dest.classes}/data"
+               debug="${javac.debug}"
+               deprecation="${javac.deprecation}"
+               optimize="${javac.optimize}"
+               target="${javac.minVMVersion}">
+            <classpath>
+                <pathelement location="${dest.classes}/beans"/>
+            </classpath>
+		</javac>
+        <copy todir="${dest.classes}/data">
+            <fileset dir="${src.data}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/*.form"/>
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy>                
+    </target>
+    <target name="compilepos" depends="init.classes,compilebeans,compiledata">
+        <mkdir dir="${dest.classes}/pos" />
+        <javac srcdir="${src.pos}"
+               destdir="${dest.classes}/pos"
+               debug="${javac.debug}"
+               deprecation="${javac.deprecation}"
+               optimize="${javac.optimize}"
+               target="${javac.minVMVersion}">
+            <classpath>
+                  <fileset dir="${basedir}/lib">
+                    <include name="**/*.jar"/>
+                  </fileset>
+                <pathelement location="${dest.classes}/beans"/>
+                <pathelement location="${dest.classes}/data"/>
+            </classpath>
+        </javac>
+        <copy todir="${dest.classes}/pos">
+            <fileset dir="${src.pos}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/*.form"/>
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy>                
+    </target>
+<!--    <target name="compileerp" depends="init.classes,compilebeans,compiledata,compilepos">
+        <mkdir dir="${dest.classes}/erp" />
+        <javac srcdir="${src.erp}"
+               destdir="${dest.classes}/erp"
+               debug="${javac.debug}"
+               deprecation="${javac.deprecation}"
+               optimize="${javac.optimize}"
+               target="${javac.minVMVersion}">
+            <classpath>
+                  <fileset dir="${basedir}/lib">
+                    <include name="**/*.jar"/>
+                  </fileset>
+                <pathelement location="${dest.classes}/beans"/>
+                <pathelement location="${dest.classes}/data"/>
+                <pathelement location="${dest.classes}/pos"/>
+            </classpath>
+        </javac>
+        <copy todir="${dest.classes}/erp">
+            <fileset dir="${src.erp}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/*.form"/>
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy>                
+    </target> -->
+
+    <!-- ================================================================= -->
+    <!-- J A R                           				   -->
+    <!-- ================================================================= -->
+
+<!--    <target name="jar" depends="init.jar,compilebeans,compiledata,compilepos,compileerp" description="Generate the .jar file."> -->
+    <target name="jar" depends="init.jar,compilebeans,compiledata,compilepos" description="Generate the .jar file.">    
+
+        <mkdir dir="${basedir}/build/zip" />
+
+        <copy todir="${basedir}/build/zip">
+            <fileset dir="${dest.classes}/beans"/>
+            <fileset dir="${dest.classes}/data"/>
+            <fileset dir="${dest.classes}/pos"/>
+<!--            <fileset dir="${dest.classes}/erp"/> -->
+        </copy>  
+        <mkdir dir="${dest.jar}" />
+        <jar jarfile="${dest.jar}/unicentaopos.jar"
+             compress="true"
+             basedir="${basedir}/build/zip">
+            <manifest>
+                <attribute name="Implementation-Vendor" value="uniCenta"/>
+                <attribute name="Implementation-Title" value="uniCenta oPOS"/>
+                <attribute name="Implementation-Version" value="${version}"/>
+                <attribute name="Main-Class" value="com.openbravo.pos.forms.StartPOS" />
+    	    </manifest>
+        </jar>
+        <delete dir="${basedir}/build/zip" />
+    </target>
+
+
+    <!-- ================================================================= -->
+    <!-- J A R  -  N A T I V E   L I B R A R I E S                         -->
+    <!-- ================================================================= -->
+
+    <target name="jar-native-libraries" depends="init.jar" description="Generate the .jar file with native libraries.">
+        <mkdir dir="${dest.jar}" />
+        <jar jarfile="${dest.jar}/linux-i686-native.jar"
+             compress="true"
+             basedir="${lib}/Linux/i686-unknown-linux-gnu">
+        </jar>
+    	<jar jarfile="${dest.jar}/linux-ia64-native.jar"
+             compress="true"
+             basedir="${lib}/Linux/ia64-unkown-linux-gnu">
+        </jar>
+    	<jar jarfile="${dest.jar}/linux-x86_64-native.jar"
+             compress="true"
+             basedir="${lib}/Linux/x86_64-unknown-linux-gnu">
+        </jar>
+        <jar jarfile="${dest.jar}/osx-native.jar"
+             compress="true"
+             basedir="${lib}/Mac_OS_X">
+        </jar>
+    	<jar jarfile="${dest.jar}/sparc32-native.jar"
+             compress="true"
+             basedir="${lib}/Solaris/sparc-solaris/sparc32-sun-solaris2.8">
+        </jar>
+        <jar jarfile="${dest.jar}/sparc64-native.jar"
+             compress="true"
+             basedir="${lib}/Solaris/sparc-solaris/sparc64-sun-solaris2.8">
+        </jar>
+        <jar jarfile="${dest.jar}/windows-native.jar"
+             compress="true"
+             basedir="${lib}/Windows/i368-mingw32">
+        </jar>
+    </target>
+	
+    <!-- ================================================================= -->
+    <!-- J A R  -  R E P O R T S  &  L O C A L E S                         -->
+    <!-- ================================================================= -->
+
+    <target name="jar-reports-and-locales" depends="init.jar" description="Generate the .jar file with reports and locales.">
+        <mkdir dir="${dest.jar}" />
+        <jar jarfile="${dest.jar}/reports.jar"
+             compress="true"
+             basedir="${basedir}/reports">
+        </jar>
+        <jar jarfile="${dest.jar}/locales.jar"
+             compress="true"
+             basedir="${basedir}/locales">
+        </jar>
+    </target>
+
+    <!-- ================================================================= -->
+    <!-- C O M P I L E - P D A   M O D U L E                               -->
+    <!-- ================================================================= -->
+
+<!--    <target name="compile.pda" depends="init.classes">
+        <mkdir dir="${dest.classes}/pda" />
+
+        <javac srcdir="${src.pda}"
+               destdir="${dest.classes}/pda"
+               debug="${javac.debug}"
+               deprecation="${javac.deprecation}"
+               optimize="${javac.optimize}"
+               target="${javac.minVMVersion}">
+            <classpath>
+                <fileset dir="${src.web}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${jetty.lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+        <copy todir="${dest.classes}/pda">
+            <fileset dir="${src.pda}" includes="**/*.properties"/>
+        </copy>
+    </target> -->
+
+
+    <!-- ================================================================= -->
+    <!-- W A R                                                            -->
+    <!-- ================================================================= -->
+
+<!--    <target name="war" depends="init.war,compile.pda" description="Generate the .war file.">
+
+        <mkdir dir="${basedir}/build/zip" />
+        <mkdir dir="${basedir}/build/zip/WEB-INF/classes" />
+        <mkdir dir="${basedir}/build/zip/WEB-INF/lib" />
+
+        <copy todir="${basedir}/build/zip">
+            <fileset dir="${src.web}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${basedir}/build/zip/WEB-INF/classes">
+            <fileset dir="${dest.classes}/pda"/>
+        </copy>
+
+        <copy file="${basedir}/lib/derby.jar" todir="${basedir}/build/zip/WEB-INF/lib"/>
+
+        <mkdir dir="${dest.war}" />
+        <war destfile="${dest.war}/${name}_${version}_pda.war"
+             basedir="${basedir}/build/zip">
+        </war>
+        <delete dir="${basedir}/build/zip"/>
+    </target> -->
+
+
+    <!-- ================================================================= -->
+    <!-- D I S T R I B U T I O N  F I L E S                                -->
+    <!-- ================================================================= -->
+    
+<!--    <target name="dist" depends="dist.bin,dist.src,dist.pda" description="Generate the release files"> -->
+    <target name="dist" depends="dist.bin,dist.src" description="Generate the release files">        
+    </target>
+  
+    <target name="dist.bin" depends="init.dist,jar" description="Generate the bin zip file.">
+        <mkdir dir="${basedir}/build/zip" />
+        <copy file="${basedir}/start.bat" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/configure.bat" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/start.sh" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/configure.sh" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/unicentaopos_128.png" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/README" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/logging.properties" todir="${basedir}/build/zip"/>
+        <copy file="${dest.jar}/unicentaopos.jar" todir="${basedir}/build/zip"/>
+        <copy todir="${basedir}/build/zip/licensing">
+            <fileset dir="${basedir}/licensing"/>
+        </copy>        
+        <copy todir="${basedir}/build/zip/lib">
+            <fileset dir="${basedir}/lib"/>
+        </copy>
+        <copy todir="${basedir}/build/zip/locales">
+            <fileset dir="${basedir}/locales"/>
+        </copy>
+        <copy todir="${basedir}/build/zip/reports">
+            <fileset dir="${basedir}/reports"/>
+        </copy>
+
+        <mkdir dir="${dest.dist}" />
+        <zip zipfile="${dest.dist}/${name}_${version}_bin.zip" basedir="${basedir}/build/zip" />
+        <delete dir="${basedir}/build/zip" />
+    </target>
+
+<!--    <target name="dist.pda" depends="init.dist,war" description="Generate de pda zip file">
+        <mkdir dir="${basedir}/build/zip" />
+
+        <copy todir="${basedir}/build/zip"  >
+            <fileset dir="${basedir}/jetty">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+	<mkdir dir="${basedir}/build/zip/logs" />
+        <copy file="${dest.war}/${name}_${version}_pda.war" todir="${basedir}/build/zip/webapps" />
+        <copy file="${basedir}/installer/pda/start.sh" todir="${basedir}/build/zip" />
+        <copy file="${basedir}/installer/pda/start.bat" todir="${basedir}/build/zip" />
+
+        <mkdir dir="${dest.dist}" />
+        <zip zipfile="${dest.dist}/${name}_${version}_pda.zip" basedir="${basedir}/build/zip" />
+        <delete dir="${basedir}/build/zip" />
+    </target> -->
+
+    <target name="dist.src" depends="init.dist" description="Generate the src zip file.">
+        <mkdir dir="${basedir}/build/zip" />
+
+        <!-- uniCenta oPOS -->
+
+        <copy todir="${basedir}/build/zip/src-beans">
+            <fileset dir="${src.beans}">
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/build/zip/src-data">
+            <fileset dir="${src.data}">
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes" />
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/build/zip/src-pos">
+            <fileset dir="${src.pos}">
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy>        
+<!--        <copy todir="${basedir}/build/zip/src-erp">
+            <fileset dir="${src.erp}">
+                <exclude name="**/.nbattrs"/>
+                <exclude name="**/Thumbs.db"/>
+                <exclude name="**/filesystem.attributes"/>
+            </fileset>
+        </copy> -->
+        <copy todir="${basedir}/build/zip/locales">
+            <fileset dir="${basedir}/locales"/>
+        </copy>
+        <copy todir="${basedir}/build/zip/reports">
+            <fileset dir="${basedir}/reports"/>
+        </copy>
+        <copy todir="${basedir}/build/zip/lib">
+            <fileset dir="${basedir}/lib"/>
+        </copy>    
+        <copy file="${basedir}/start.bat" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/configure.bat" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/start.sh" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/configure.sh" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/unicentaopos_128.png" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/README" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/logging.properties" todir="${basedir}/build/zip"/>
+        <copy file="${basedir}/build.xml" todir="${basedir}/build/zip" />
+        <copy file="${basedir}/.project" todir="${basedir}/build/zip" />
+        <copy file="${basedir}/.classpath" todir="${basedir}/build/zip" />
+        <copy file="${basedir}/Base diff.launch" todir="${basedir}/build/zip" />
+        <copy file="${basedir}/Head diff.launch" todir="${basedir}/build/zip" />
+
+        <!-- pda -->
+
+<!--        <copy todir="${basedir}/build/zip/src-pda">
+            <fileset dir="${src.pda}"/>
+        </copy>
+        <copy todir="${basedir}/build/zip/jetty">
+            <fileset dir="${basedir}/jetty"/>
+        </copy>
+        <copy todir="${basedir}/build/zip/web">
+            <fileset dir="${basedir}/web"/>
+        </copy> -->
+
+        <!-- licensing -->
+
+        <copy todir="${basedir}/build/zip/licensing">
+            <fileset dir="${basedir}/licensing"/>
+        </copy>
+
+        <mkdir dir="${dest.dist}" />
+        <zip zipfile="${dest.dist}/${name}_${version}_src.zip" basedir="${basedir}/build/zip" />
+        <delete dir="${basedir}/build/zip" />
+    </target>
+
+    <!-- ================================================================= -->
+    <!-- I N S T A L L E R S                                               -->
+    <!-- ================================================================= -->
+
+    <target name="installer" depends="installer.pos" 
+			description="Generate installers of POS for all predefined platforms">	
+    </target>
+
+    <!-- ================================================================= -->
+    <!-- I N S T A L L E R S   P O S                                       -->
+    <!-- ================================================================= -->
+
+    <target name="installer.pos" depends="installer.pos.linux, installer.pos.linux-x64, installer.pos.linux-ia64, installer.pos.windows, installer.pos.osx, installer.pos.solaris-intel"
+			description="Generate installers for all predefined platforms">
+    </target>
+
+    <target name="installer.pos.linux" depends="init.installer.pos, jar" description="Generate an installer for Linux">
+    	<exec executable="${bitrock}/bin/builder" failonerror="true">
+	    <arg value="build"/>
+	    <arg value="${basedir}/installer/installer.xml" />
+	    <arg value="linux" /> 
+    	</exec>
+    </target>
+   <target name="installer.pos.linux-x64" depends="init.installer.pos, jar" description="Generate an installer for Linux x64">
+	<exec executable="${bitrock}/bin/builder" failonerror="true">
+	    <arg value="build"/>
+	    <arg value="${basedir}/installer/installer.xml" />
+	    <arg value="linux-x64" /> 
+    	</exec> 
+    </target>
+   <target name="installer.pos.linux-ia64" depends="init.installer.pos, jar" description="Generate an installer for Linux ia64">
+	<exec executable="${bitrock}/bin/builder" failonerror="true">
+	    <arg value="build"/>
+	    <arg value="${basedir}/installer/installer.xml" />
+	    <arg value="linux-ia64" /> 
+    	</exec> 
+    </target>
+    <target name="installer.pos.windows" depends="init.installer.pos, jar" description="Generate an installer for Windows">
+	<exec executable="${bitrock}/bin/builder" failonerror="true">
+	    <arg value="build"/>
+	    <arg value="${basedir}/installer/installer.xml" />
+	    <arg value="windows" /> 
+    	</exec> 
+    </target>
+   <target name="installer.pos.osx" depends="init.installer.pos, jar" description="Generate an installer for OSX">
+	<exec executable="${bitrock}/bin/builder" failonerror="true">
+	    <arg value="build"/>
+	    <arg value="${basedir}/installer/installer.xml" />
+	    <arg value="osx" /> 
+    	</exec> 
+    </target>
+   <target name="installer.pos.solaris-intel" depends="init.installer.pos, jar" description="Generate an installer for Solaris-Intel">
+	<exec executable="${bitrock}/bin/builder" failonerror="true">
+	    <arg value="build"/>
+	    <arg value="${basedir}/installer/installer.xml" />
+	    <arg value="solaris-intel" /> 
+    	</exec> 
+    </target>
+
+   
+    <!-- ================================================================= -->
+    <!-- J W S                                     			   -->
+    <!-- ================================================================= -->
+
+   <target name="jws" depends="copy-libraries-up, sign-jars"/>	
+
+   <target name="keystore">
+        <property name="jnlp.signjar.keystore" value="keystore"/>
+        <property name="jnlp.signjar.storepass" value="changeit"/>
+        <property name="jnlp.signjar.keypass" value="changeit"/>
+        <property name="jnlp.signjar.alias" value="key"/>
+   </target>
+
+   <target name="init-keystore" depends="keystore">
+        <echo message="Going to create default keystore in ${jnlp.signjar.keystore}"/> 
+	<genkey keystore="${dest.dist}/jws/${jnlp.signjar.keystore}" alias="${dest.dist}/jws/${jnlp.signjar.alias}" storepass="${dest.dist}/jws/${jnlp.signjar.storepass}" >
+  		<dname>
+    			<param name="CN" value="uniCenta oPOS"/>
+    			<param name="OU" value="uniCenta oPOS"/>
+    			<param name="O"  value="uniCenta"/>
+    			<param name="C"  value="GB"/>
+  		</dname>
+	</genkey>
+   </target>
+
+   <target name="sign-jars" depends="init-keystore">
+        <signjar keystore="${dest.dist}/jws/${jnlp.signjar.keystore}" storepass="${dest.dist}/jws/${jnlp.signjar.storepass}"
+                 alias="${dest.dist}/jws/${jnlp.signjar.alias}" >
+            <fileset dir="${dest.dist}/jws">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${dest.dist}/jws/lib">
+                <include name="*.jar"/>
+            </fileset>
+        </signjar>
+   </target>
+   <target name="copy-libraries-up" depends="jar-reports-and-locales, jar-native-libraries, jar">
+	<mkdir dir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/linux-i686-native.jar" 
+	      todir="${dest.dist}/jws"/>
+ 	<copy file="${dest.jar}/linux-ia64-native.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/linux-x86_64-native.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/osx-native.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/sparc32-native.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/sparc64-native.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/windows-native.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/unicentaopos.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/locales.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${dest.jar}/reports.jar" 
+	      todir="${dest.dist}/jws"/>
+	<copy file="${basedir}/unicentaopos_128.png" 
+	      todir="${dest.dist}/jws"/>
+	<copy todir="${dest.dist}/jws/lib">
+    	    <fileset dir="lib"/>
+        </copy> 
+        <copy file="${basedir}/launch.jnlp" 
+	      todir="${dest.dist}/jws"/>
+   </target>
+
+</project>

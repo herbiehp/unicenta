@@ -1,0 +1,88 @@
+uniCenta oPOS v3.0Beta1
+Date: 1st September 2012 @ 19:24
+
+uniCenta oPOS ships with the Apache Derby Embedded (default) database for a single, local installation. 
+The database is installed, by default, in the C:\Documents and Settings\yourprofilename\unicentaopos-database directory.
+uniCenta oPOS also supports multiple Point Of Sale terminals across a network. 
+In this case you will need to install a multi-user database such Derby Network Client\Server version, MySQL, Postgres or Oracle - (see uniCenta oPOS Installation and Administrator manuals).
+These databases must be properly running and configured without issues before installing uniCenta oPOS. uniCenta oPOS can be easily configured to connect to an alternative database at a later stage.
+
+uniCenta Team
+
+v3.0Beta1
+#1.  	Reports - Remove PRODUCTOUT Table references from legacy reports
+#2.  	Reports - JasperReports Library 4.5.1 upgrade
+#3.  	Reports - Payments Report - remove debt <0
+#4.  	Reports - CatalogueSales - Products * Units
+#5.  	Reports - Customer report - Barcode Card fix
+#6.  	Reports - People report - Barcode Card fix
+#7.  	Reports - Added Sale Catalog report
+#8.  	Reports - Restyle ALL report formats
+#9. 	Reports - Extended Product Sales - Fix to incorrect SQL - rpt:extproducts
+#10. 	Reports - Sales Catalogue - change to from Vertical to Horizontal detail flow - rpt:salescatalog
+#11. 	Reports - Product Labels - change to from Vertical to Horizontal detail flow - rpt:productlabels
+#12. 	Reports - Add new Customers List report
+#13. 	Reports - Category Sales Report - amnended to account for LineDiscount
+
+#14. 	Languages - Add Croation Locale
+#15. 	Languages - Add Estonian Locale
+
+#16. 	Libraries - Upgrade to Java Runtime 7 and Java JDK 7
+#17. 	Libraries - All Components Updated to latest
+#18. 	Libraries - Added pushingpixelslibrary Look & Feel library
+#19. 	Libraries - 13 New skins added. Now 38 available
+
+#20.  	Enhancements - Add All report End Date default to Today()
+#21. 	Enhancements - Code reviewed/Amended to switch, multicatch and try-with-resources functions + organize import headers + added @overrides
+#22. 	Enhancements - Code reviewed/Amended to Diamond Inference model
+#23. 	Enhancements - Add Employee Presence Management (EPM)
+#24. 	Enhancements - Add Employee Presence Management (EPM) Reports
+#25. 	Enhancements - Update ALL SQL scripts - for EPM
+#26. 	Enhancements - Increased Number Key pad sizing: adjust Category height for 800x600 mode
+#27. 	Enhancements - Increased Category Thumbnail sizing in Sales Screen
+#28. 	Enhancements - Added Small, Medium (Default), Large Product button size options
+#29. 	Enhancements - User Logon screen re-design - more visible Users
+#30. 	Enhancements - Cleaned-up; grouped and annotated Menu.Root script
+#31. 	Enhancements - Cleaned-up; grouped and annotated Button.Text script
+#32. 	Enhancements - Add Payment Change dialogue
+#33. 	Enhancements - Consolidate multiple Product Quantities into single Receipt line
+#34. 	Enhancements - Included Return (Cash Change) amount after Paymet settlement
+#35. 	Enhancements - Modified ProductsEditor form - Input order& resolves decimal rounding issue
+#36. 	Enhancements - Icon set - new plain introduced for better contrast across all Themes and improved User interpretation
+#37. 	Enhancements - Form components - resized (larger) to allow better control via touch interface - especially on Tablet devices
+
+#38. 	Bug Fixes - Correct error in PostgreSQL Create scripts
+#39. 	Bug Fixes - Correct error in HSQLDB Create scripts
+#40. 	Bug Fixes - Jasper Report Save to .xls bug fixed - Apache poi 3.80 libraries fixes issue
+#41.	Bug Fixes - JRViewer300 item object()
+
+2.80
+#1.     Stock Check - Inventory Minimum check during Sale 
+#2.     Clock -  Real Time Clock based on machine's Time
+#3.     Restaurant mode - Add Waiter Name to Sale, different to Person logged in
+#4.     Product As a Service - Sets Product to not deduct/add to Inventory in Sale which also allows for #5;
+#5.     Customer PrePay - using #4 for i.e.; a Product item to allow for Customer negative debt/Pre-pay Voucher
+#6.     Sales screen - Allows Product Returns directly in Sales screen and produce a Refund receipt
+#7.     CashIn/CashOut - Note field added
+#8.     Customer Debt Payment - Payment to Bank option added
+#9.	Various UI improvements inc; Keypad and Number Pad re-design
+#10.    BugFix - Customer Diary Report Date
+#11.    Updated SQL Create and Update Scripts for all DB's (Derby Embedded & Client/Server, HSQLDB, MySQL, Oracle and PostgreSQL)
+#12.    Linux Installer
+#13.    Apple Mac OSX Installer
+
+2.70 - Internal only
+#1.	Language Pack - Locales
+#2.	Linux installer - Work In Progress pushed to v3.0
+#3.	Apple OSX installer - Work In Progress pushed to v3.0
+
+2.60
+#1.	Continuing Bug Fixes
+#2.	New User interface icons
+#3.	Additional report - Profit
+#4.	Kitchen Printing
+#5.	Amended pos_messages.properties
+#6.	Test. OK. MySQL version 5.5 and latest MySQL JDBC Driver
+#7.	SQL Create and Update Scripts update for all DB's (Derby Embedded & Client/Server, HSQLDB, MySQL, Oracle and PostgreSQL)
+
+

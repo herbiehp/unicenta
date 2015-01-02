@@ -1,0 +1,26 @@
+7 June 2014
+Release: v4.00
+
+********* KNOWN ISSUES *********
+1.  There is a known issue with HSQLDB 2.n driver which does not handle BLOB
+    (Categories, Products, Customers, People) correctly
+    It causes an error when loading Sales panel - Clicking OK allows you to
+    continue seemingly with no adverse effect
+    Adding Images to (Categories, Products, Customers, People) forms is not
+    affected.
+Suggestion: avoid use of HSQLDB database for now or revert to older 1.8 driver
+
+********************************
+
+1.  Bug: 
+    Fix: 
+
+2.  Enhancement: script.totaldiscount now preserves current line properties i.e.: kitchen print
+3.  Enhancement: Form-PartialCash - Added Net Sales column To jSales. Added Net Sales Field to Summary. Various layout mod's
+4.  Enhancement: Printer.PartialCash - Layout re-work. Added Net Sales values to detail and Taxes
+5.  Enhancement: Add StockUnits to ProductFind list
+6.  Enhancement: Return to new ticket after sale completed instead of picking up next Layaway. 
+7.  Enhancement: Elipses added to icon if Layaways exist or in current Layaway
+ 
+
+

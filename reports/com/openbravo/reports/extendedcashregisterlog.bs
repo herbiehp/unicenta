@@ -1,0 +1,56 @@
+//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
+//
+//    This file is part of uniCenta oPOS
+//
+//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.ExtendedCashRegisterLog");
+report.setReport("/com/openbravo/reports/extendedcashregisterlog");
+report.setResourceBundle("com/openbravo/reports/extendedcashregisterlog_messages");
+
+report.setSentence("SELECT " +
+                "TICKETS.TICKETID AS TICKET_NO, " +
+                "RECEIPTS.DATENEW AS TICKET_DATE, " +
+				"PAYMENTS.TOTAL AS MONEY, " +
+				"CUSTOMERS.NAME AS CUSTOMER, " +
+				"PAYMENTS.PAYMENT AS PAYMENT " +
+                "FROM RECEIPTS " +
+                "LEFT JOIN TICKETS ON RECEIPTS.ID = TICKETS.ID " +
+				"LEFT JOIN PAYMENTS ON RECEIPTS.ID = PAYMENTS.RECEIPT " +
+				"LEFT JOIN CUSTOMERS ON TICKETS.CUSTOMER = CUSTOMERS.ID " +
+                "WHERE ?(QBF_FILTER) " +
+                "ORDER BY RECEIPTS.DATENEW");
+
+report.addParameter("RECEIPTS.DATENEW");
+report.addParameter("RECEIPTS.DATENEW");
+
+paramdates = new com.openbravo.pos.reports.JParamsDatesInterval();
+
+paramdates.setStartDate(com.openbravo.beans.DateUtils.getToday());
+// JG - 8 Jan 14 paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
+paramdates.setEndDate(com.openbravo.beans.DateUtils.getTodayMinutes());
+
+report.addQBFFilter(paramdates);
+
+report.addField("TICKET_NO", com.openbravo.data.loader.Datas.STRING);
+report.addField("TICKET_DATE", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("MONEY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CUSTOMER", com.openbravo.data.loader.Datas.STRING);
+report.addField("PAYMENT", com.openbravo.data.loader.Datas.STRING);
+
+return report;

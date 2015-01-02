@@ -1,0 +1,107 @@
+5 April 2014
+Release: v3.60
+
+********* KNOWN ISSUES *********
+1.  There is a known issue with HSQLDB 2.n driver which does not handle BLOB
+    (Categories, Products, Customers, People) correctly
+    It causes an error when loading Sales panel - Clicking OK allows you to
+    continue seemingly with no adverse effect
+    Adding Images to (Categories, Products, Customers, People) forms is not
+    affected.
+Suggestion: avoid use of HSQLDB database for now or revert to older 1.8 driver
+
+********************************
+
+1.  Bug: First Data Credit Card transaction failure
+    Fix: PaymentGatewayLinkPoint code
+2.  Bug: Credit Card response panel cropping keypad
+    Fix: Move Credit Card tranx panel to upper part of JPaymentMagcard form
+3.  Bug: First Data Certificate path field cropped + File Browser button hidden
+    Fix: Change Field and ConfigPaymentLinkPointPanel Properties
+4.  Bug: Category Sales report rpt:categorysales db.fieldname(s) in lower case
+         fails in Derby
+    Fix: Convert to UPPERCASE
+5.  Bug: Category Sales report rpt:categorysales Item/Price/Discount values
+         incorrect
+    Fix: Restructure SQL query and separate to Gross and Net value columns
+6.  Bug: Some SQL table CREATE scripts.fieldname in lowercase
+    Fix: Convert to UPPERCASE
+7.  Bug: Customer.Cards SQL construct error
+    Fix: DatalogicSales Line 769 fix + "IMAGE "
+8.  Bug: Reports - Linux Fonts fail
+    Fix: All Jasper reports - Changed Fonts to native <Default> Sans Serif
+9.  Bug: Report values doubling-up rpt:top10sales
+    Fix: Amended SQL script + inclusion of Taxes and SubTotal
+10. Bug: Customer Current Debt field null error using MySQL and PostrgeSQL DB's
+    Fix: Remove constraints from Customer.Curdebt fields create scripts
+11. Bug: Product with Attrubute carrying over to next Product on Kitchen Ticket
+    Fix: Printer.TicketKitchen - Move Attribute script before #end of foreach
+         loop 
+12. Bug: Top 10 Sales report rpt:top10sales now available in Derby
+    Fix: SQL statement compatility with GROUP
+13. Bug: jdk1.7.0_45/JRE 1.7 jrc.jar incompatability with Swing/substance LAF
+         jFrame component causing big leak
+    Fix: Reworked try { (Exception, e) plue moved affected code blocks to
+         switch and case statements
+14. Bug: Duplicate Ticket ID's (from earlier system i.e.: after Openbravo POS
+         conversion) only return earlier occurence
+    Fix: Tweak exisiting DataLogicSales SQL to return current.
+15. Bug: Leak in Ticket object var causing fail in Edit Sales
+    Fix: Removed m_tendered var from collection
+16. Bug: Category Sales Pie Chart rpt:piesalescat SQL error
+    Fix: Rework SQL & prettify presentation (Enhancement:)
+17. Bug: Variable Price Product Tax calculation incorrect LineValue nett's out
+         Tax and ignoring Tax +/- button
+    Fix: Amend code to allow add LineValue Tax
+18. Bug: Inconsistent SQL CREATE databases causing Customer Debt Payment error
+         i.e.; when using PostgreSQL database - will not accept NULL value
+    Fix: Change ALL SQL CREATE and UPGRADE scripts for Customer curdebt field
+         to NOT NULL DEFAULT 0
+
+19. Enhancement: All reports - DateStart & DateEnd autocompletion
+                 (earliest/latest time)
+20. Enhancement: Add Notes column to Sales Payment report rpt:paymentreport
+21. Enhancement: Move Date range Cash Closed report rptclosedpos
+22. Enhancement: New Report - CashClose II report rpt:closedpos_2 - use for
+                 export
+23. Enhancement: Add Report rpt:top10sales now available for Apache Derby
+24. Enhancement: New Report - Add Customer List(Export) report
+                 rpt:customer_list - use for export
+25. Enhancement: Add Italian language available
+26. Enhancement: Add Albanian language available
+27. Enhancement: Add BluePay to Card Payments Gateway Providers
+28. Enhancement: Print Cash Closed ticket now with Products, Categories, Taxes
+29. Enhancement: CSV Import Add remember last folder and Bad Category
+30. Enhancement: Enlarge Change Dialog - Ticket.Close
+31. Enhancement: Product Sales report rpt:productsales tidy-up presentation
+32. Enhancement: Role.Administrator.xml - Tidy up + add meaningful Sections
+                 and Comments
+33. Enhancement: New - A4 ticket template Printer.Ticket_A4.txt
+34. Enhancement: New - A4 ticket template Ticket Printer.TicketPreview_A4.txt
+35. Enhancement: Upgrade HyperSQL(HSQLDB) from driver 1.8 to 2.3 as domain
+                 model change to org.hsqldb edit code and fix SQL scripts
+36. Enhancement: New - Add capture and store of LinesRemoved in sales
+                 transactions - results shown in CashClosed
+37. Enhancement: New Report - Invalid Category
+38. Enhancement: Revised New Products report
+39. Enhancement: Category Sales report QTY fixed and Rounding (2 decimal)
+40. Enhancement: Various other reports tidy up
+41. Enhancement: Various code housekeeping (@Tags,@return, @params ready for
+                 Javadoc) + (switch some if's to case) + (finals & object
+                 types declarations)
+42. Enhancement: Move of TicketID and Customer from top Button Bar (upper
+                 left) to beneath (lower left) transaction lines gives more
+                 display space
+43. Enhancement: New - Weighing scales Product Price barcode series
+                 2/02/20/21/22/23/24/25/28 for weight/price now supported
+44. Enhancement: New - Record remove line from ticketline in CashClose report
+45. Enhancement: Print CashClose now includes Payments; Tax Analysis; and
+                 Product Category
+46. Enhancement: Include new uniCenta branding and logos
+47. Enhancement: Present (New Record) on first opening of Product Editor -
+                 this is to minimise confusion and overwrite of existing data
+48. Enhancement: Variable Price Product message dialogue
+49. Enhancement: Installer with latest uniCenta branding
+50. Enhancement: Installer checks for Java JRE runtime
+51. Enhancement: Installer now includes Extras folder - Images and all language
+                 locales files

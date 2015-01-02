@@ -1,0 +1,65 @@
+uniCenta oPOS v3.02
+Date: 3rd December 2012 @ 00:00
+
+
+Known Issues
+1.  	uniCenta oPOS requires a correctly installed Java runtime(JRE) version 1.7 
+2.  	Changes in script files will require manual install to latest versions
+        - available here: www.unicenta.com/downloads
+    		Printer.Ticket
+		Printer.TicketPreview
+		Printer.TicketKitchen
+3.	It is recommended that you un-install previous Beta versions
+4.	script.Refundit causes Product Search & Amend buttons to disappear
+
+*** SOURCE CODE IS AVAILABLE FROM: www.unicenta.com/downloads ***
+
+v3.02
+#1.	Bug Fix: Roles - Remove duplicate categorysales.bs - causing "...
+        permissions issue with i.e.; Category Sales"
+#2.	Bug Fix: Consolidate Receipt - Only valid for sales with a ProductID
+#3.	Bug Fix: Printer.Ticket - Corrected Table name ${place} issue in 
+        non-Restaurant Mode
+#4.	Bug Fix: Printer.TicketPreview - Corrected Table name ${place} issue in
+        non-Restaurant Mode - see #5.	separate download patch
+#5.	Bug Fix: JPanelTicket - Last ticket line delete refresh of 
+        SubTotal/Taxes/Total
+#6.	Bug Fix: JPanelTicket - Clear last sales transaction detail after 
+        settlement
+#7.	Bug Fix: EditorKeys - Restore ability to use Keyboard
+#8.	Bug Fix: Menu.Root - Sales Report options
+#9.	Bug Fix: Payment Gateway: Misspelling First Data corrected
+#10.	Bug Fix: Report - Category Sales fix underlying SQL construct 
+        (now inc' Discount)
+#11.	Bug Fix: Report - Transaction Log Total field Currency format
+#12.	Bug Fix: Report - Extended Transaction Log Total field Currency 
+        format + TIMESTAMP error
+#13.	Bug Fix: configure.bat - fix java -start options
+#14.	Bug Fix: Report - Convert all fonts to native Jasper Reports Sans Serif
+
+#15.	Enhancement: PaymentModel - add new Category's method  
+#16.	Enhancement: Print.PartialCash - add Category sales to ticket 
+#17.	Enhancement: Hide pop-out Menu on Start-up
+#18.	Enhancement: Product - Optimise General Tab Layout
+#19.	Enhancement: Product - Move Image to new Image Tab
+#20.	Enhancement: Product - Auto-complete barcode derived from Reference 
+        field to avoid duplicate NULL indeces
+#21.	Enhancement: Product - Add Button Tab for HTML tags for multiline, 
+        color, font & etc Product buttons
+        - see http://docs.oracle.com/javase/tutorial/uiswing/components/html.html
+
+#22.	Other: Menu.Root - Amend Sales Report options
+#23.	Other: Databases - Add product.Display column via all SQL Scripts
+#24.	Other: Ticket.Buttons - Change Max Category Height for 1024x768 to 
+        Default <cat-height value="320" />
+#25.	Other: Config Panel - Printer Default from Serial/file to file/Serial
+#26.	Other: Currency - GBP Notes converted to .png
+#27.	Installer: Included auto-detection script for Java 1.7 JRE 
+
+#28.	Languages - English_US - Complete
+#29.	Languages - Portuguese_Portugal - Partial
+#30.	Languages - Portguese_Brazil - Partial
+#31.	Languages - Arabic - Complete
+#32.	Languages - Spanish_Mexico - Partial
+Note: Language Packs have been removed from Installer. 
+Available here: http://www.unicenta.com/developers/translate_unicenta/

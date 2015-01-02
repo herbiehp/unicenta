@@ -1,0 +1,53 @@
+13 May 2014
+Release: v3.70
+
+********* KNOWN ISSUES *********
+1.  There is a known issue with HSQLDB 2.n driver which does not handle BLOB
+    (Categories, Products, Customers, People) correctly
+    It causes an error when loading Sales panel - Clicking OK allows you to
+    continue seemingly with no adverse effect
+    Adding Images to (Categories, Products, Customers, People) forms is not
+    affected.
+Suggestion: avoid use of HSQLDB database for now or revert to older 1.8 driver
+
+********************************
+
+1.  Bug: rxtx cannot access port causing process leak
+    Fix: copy rxtxtParallel.dll and rxtxSerial.dll to Windows\system32 folder
+2.  Bug: rxtxc.jar cannot access port causing error
+    Fix: copy rxtxt,jar to jre\bin folder
+3.  Bug: Piecatsales report fails to run
+    Fix: SQL piesalescat.bs SQL statement
+4.  Bug: Barcode changes (in 3.60) skipping correct read of short EAN-UPC codes
+    Fix: Add missing enclosing brackets in if statement
+5.  Bug: rpt:taxcatsales missing Printed label
+    Fix: Add missing label.printed=Printed(English only)
+6.  Bug: rpt:productsalesprofit missing field name
+    Fix: Amended SQL script
+7.  Bug: rpt:customersdebtors invalid reference
+    Fix: Set to customersdebtors
+8.  Bug: Ticket.Buttons default <cat-height> commented instead of <cat-width>
+    Fix: Remove <cat-height> comment symbols and add to <cat-width>
+9.  Bug: script.totaldiscount stray discountperc variable assignment
+    Fix: remove discountperc variable
+10. Enhancement: rpt:closedproducts report pre/post discount values added
+11. Enhancement: Rewrite closedproducts.bs SQL script
+12. Enhancement: Redesign rpt:chartsales
+13. Enhancement: Rewrite rpt:extproducts SQL script now available for all DB's
+14. Enhancement: Add Product Barcode labels rpt:barcodesheet
+15. Enhancement: Add Product Shelf-edge Barcode labels rpt:shelfedgelabels
+16. Enhancement: Fix layout rpt:badprice layout
+17. Enhancement: Fix layout rpt:invalidcategory layout
+18. Enhancement: Fix layout rpt:invaliddata layout
+19. Enhancement: Fix layout rpt:missingdata layout
+20. Enhancement: Fix layout rpt:newproducts layout
+21. Enhancement: Misc. Item Sale now set with default ProductID to enable in reporting
+22. Enhancement: Pop-up EditLine form on non-Product sales line entry
+23. Enhancement: Remove Item name restriction to allow edit of Item name
+23. Enhancement: script.totaldiscount Rounding corrected using rint + decimal
+24. Change: Ticket.Buttons - TotalDiscount now set to Default=ENABLED
+25. Change: Ticket.Buttons - script.ReceiptConsolidate now set to Default=DISABLED
+26. Change: Default Printer margin settings changed from Star to Epson ESC/POS
+ 
+
+

@@ -1,0 +1,33 @@
+RELEASE Notes 2.4
+Date: 3 June 2010
+
+General: 
+All form & field layout optimized to fit 800x600 resolution upwards
+Administrator Password/PIN - removed from default installation 
+
+Sales Screen:
+Category panel - default height now set to 160 and Category/Product buttons to 64x48 - To increase/decrease size according to your screen resolution:
+Administration>Maintenance>Resources>Ticket.Buttons
+    <img-width value="64"/>
+    <img-height value="48"/>
+    <cat-height value="160" />
+
+Ticket Line display - now defaults to: Item - Price - Units - Taxes - Value
+Ticket Lines are calculated: Price * Units = NettValue * TaxRate = LineValue - reduces/eliminates rounding issues
+Receipt Ticket - layout amended
+Print Ticket Preview - layout amended
+
+Stock Maintenance:
+All Report buttons now visible within 800x600
+
+Reports:
+JasperReports Library upgraded to latest version 3.7.3 - Jasper bug fixes
+Report Headers - solid Title block removed now black text on clear background (saves ink)
+New reports - 13 more reports (beta) shipped but not yet added to panels 
+
+Currency:
+Now currency neutral - ships with euro images by default and available separately (see Bonus folder) but can easily be changed in Administration>Maintenance>Resources>note/coin denomination  
+GB-Sterling images available for download from http://www.sourceforge.net/projects/unicentaopos... other denominations will be available for download as and when
+
+
+Various QBF layouts amended

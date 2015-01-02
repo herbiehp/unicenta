@@ -1,0 +1,95 @@
+uniCenta oPOS v3.00
+Date: 1st October 2012 @ 23:59
+
+uniCenta oPOS ships with the Apache Derby Embedded (default) database for a
+single, local installation. 
+The database is installed, by default, for example in the WindowsXP can be found
+C:\Documents and Settings\yourprofilename\unicentaopos-database directory. 
+For other OS please refer to your OS manuals
+
+uniCenta oPOS also supports multiple Point Of Sale terminals across a network. 
+In this case you will need to install a multi-user database such as 
+Derby Network Client\Server version, HSQLDB, MySQL, Postgres or Oracle
+Refer to uniCenta oPOS Installation and Administrator manuals.
+These databases should be properly configured and running without issues before
+installing uniCenta oPOS. 
+uniCenta oPOS can be easily configured to connect to an alternative database at
+a later stage.
+
+Known Issues
+1.  uniCenta oPOS requires Java runtime(JRE) Version 7.x 
+2.  Upgrading will replace the Menu.Root - Any changes you have made to original
+    script may be lost and will require you to re-enter
+3.  It is recommended that you un-install previous Beta versions
+4.  Upgrade scripts will upgrade from Openbravo POS 2.30.2 only to v3.00
+5.  There are known variations of uniCenta oPOS 3.xBeta's out there already 
+    with changes made by others; In these cases - upgrade compatibility using
+    this Release version cannot be given.
+
+*** SOURCE CODE WILL BE MADE AVAILABLE 14th October 2012 ***
+
+uniCenta Team
+
+v3.00
+#1. 	Bug Fixes - Correct error in PostgreSQL Create scripts
+#2. 	Bug Fixes - Correct error in HSQLDB Create scripts
+#3. 	Bug Fixes - Jasper Report Save to .xls bug fixed - Apache poi 3.80 libraries fixes issue
+#4.	Bug Fixes - JRViewer300 item object()
+#5. 	Bug Fixes - Restaurant - JTicketsBagRestaurantMapSQL statements re: Linux case value
+#6.	Bug Fixes - Employee Presence CheckIn/Out panel load error
+#7.	Bug Fixes - PAYMENTS.MONEY (incorrect) replaced with PAYMENTS.PAYMENT
+#8.	Bug Fixes - SEQUENCE field renamed to HOSTSEQUENCE
+#9.     Bug Fixes - Removed duplicate  
+
+#10.  	Enhancements - Add All report End Date default to Today()
+#11. 	Enhancements - Code reviewed/Amended to switch, multicatch and try-with-resources functions + organize import headers + added @overrides
+#12. 	Enhancements - Code reviewed/Amended to Diamond Inference model
+#13. 	Enhancements - Add Employee Presence Management (EPM)
+#14. 	Enhancements - Add Employee Presence Management (EPM) Reports (only usable with non-Derby DB's)
+#15. 	Enhancements - Update ALL SQL scripts - for EPM
+#16. 	Enhancements - Increased Number Key pad sizing: adjust Category height for 800x600 mode
+#17. 	Enhancements - Increased Category Thumbnail sizing in Sales Screen
+#18. 	Enhancements - Added Small, Medium (Default), Large Product button size options
+#19. 	Enhancements - User Logon screen re-design - more visible Users
+#20. 	Enhancements - Cleaned-up; grouped and annotated Menu.Root script
+#21. 	Enhancements - Cleaned-up; grouped and annotated Button.Text script
+#22. 	Enhancements - Add Payment Change dialogue
+#23. 	Enhancements - Consolidate multiple Product Quantities into single Receipt line
+#24. 	Enhancements - Included Return (Cash Change) amount after Payment settlement
+#25. 	Enhancements - Modified ProductsEditor form - Input order& resolves decimal rounding issue
+#26. 	Enhancements - Icon set - new plain introduced for better contrast across all Themes and improved User interpretation
+#27. 	Enhancements - Form components - resized (larger) to allow better control via touch interface - especially on Tablet devices
+#28.	Enhancements - Icons theme - revamped some/created new icons + recolour all to blue for better visibility across all (light & dark) themes
+#29.	Enhancements - Service Charge script (Work In Progress - to be delivered in next [dot] release)  
+#30.	Enhancements - Default Skin changed to org.pushingpixels.substance.api.skin.ModerateSkin instead of javax.swing....MetalLookAndFeel
+#31.	Enhancements - DB-create scripts updated
+#32.	Enhancements - Administrator; Manager; Employee Roles scripts updated
+#33.	Enhancements - uniCentaoPOS.jar renamed unicentaopos.jar (all lower case) for *nix compatability - changes to start.bat + start.sh
+#34.	Enhancements - Menu.Root.txt commenting ref: Derby report limitations/options i.e.: Sales Category report
+#35.	Enhancements - Roles (Administrator/Manager...) commenting ref: Derby report limitations/options i.e.: Sales Category report
+#36.    Enhancements - Added Postal to Customer Finder Search criteria
+#37.	Enhancements - Icon change to JCalendarPanel and JTimePanel
+#38.    Enhancements - Revised Openbravo POS 2.30.2 upgrade to uniCenta oPOS v3.00 Upgrade scripts
+
+#39.  	Reports - Remove PRODUCTOUT Table references from legacy reports
+#40.  	Reports - JasperReports Library 4.5.1 upgrade
+#41.  	Reports - Payments Report - remove debt <0
+#42.  	Reports - CatalogueSales - Products * Units
+#43.  	Reports - Customer report - Barcode Card fix
+#44.  	Reports - People report - Barcode Card fix plus changed from Vertical to Horizontal
+#45.  	Reports - Added Sale Catalog report (as option in Menu.Root)
+#46.  	Reports - Restyle ALL report formats
+#47. 	Reports - Extended Product Sales - Fix to incorrect SQL - rpt:extproducts
+#48. 	Reports - Sales Catalogue - change to from Vertical to Horizontal detail flow - rpt:salescatalog
+#49. 	Reports - Product Labels - Barcode fix plus change from Vertical to Horizontal detail flow - rpt:productlabels
+#50. 	Reports - Add new Customers List report
+#51. 	Reports - Category Sales Report - amended to account for LineDiscount
+#52.    Reports - Customers (Card Style) format layout changes
+
+#53. 	Libraries - Upgrade to Java Runtime 7 and Java JDK 7
+#54. 	Libraries - All Components Updated to latest
+#55. 	Libraries - Added pushingpixelslibrary Look & Feel library
+#56. 	Libraries - 13 New skins added. Now 38 available
+
+#57. 	Languages - Add Croation Locale
+#58. 	Languages - Add Estonian Locale

@@ -1,0 +1,52 @@
+//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
+//    Copyright (C) 2011 Gjergj Sheldija
+//    http://www.acme-tech.net//
+//
+//    This file is part of uniCenta oPOS
+//
+//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.DailyPresenceReport");
+report.setReport("/com/openbravo/reports/dailypresence");
+report.setResourceBundle("com/openbravo/reports/dailypresence_messages");
+
+report.setSentence("SELECT " +
+                "PEOPLE.NAME, " +
+                "SHIFTS.STARTSHIFT, " +
+                "SHIFTS.ENDSHIFT, " +
+                "CONCAT('',TIMEDIFF(SHIFTS.ENDSHIFT, SHIFTS.STARTSHIFT)) AS TOTAL " +
+                "FROM PEOPLE LEFT JOIN SHIFTS ON SHIFTS.PPLID = PEOPLE.ID " +
+                "WHERE ?(QBF_FILTER) ");
+
+report.addParameter("SHIFTS.STARTSHIFT");
+report.addParameter("SHIFTS.ENDSHIFT");
+
+paramdates = new com.openbravo.pos.reports.JParamsDatesInterval();
+
+paramdates.setStartDate(com.openbravo.beans.DateUtils.getToday());
+// JG - 8 Jan 14 paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
+paramdates.setEndDate(com.openbravo.beans.DateUtils.getTodayMinutes());
+
+report.addQBFFilter(paramdates);
+
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("STARTSHIFT", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("ENDSHIFT", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.STRING);
+
+report;

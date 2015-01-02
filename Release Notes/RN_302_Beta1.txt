@@ -1,0 +1,75 @@
+uniCenta oPOS v3.02Beta1
+Date: 9th September 2012 @ 08:00
+
+uniCenta oPOS ships with the Apache Derby Embedded (default) database for a single, local installation. 
+The database is installed, by default, in the C:\Documents and Settings\yourprofilename\unicentaopos-database directory.
+uniCenta oPOS also supports multiple Point Of Sale terminals across a network. 
+In this case you will need to install a multi-user database such Derby Network Client\Server version, MySQL, Postgres or Oracle - (see uniCenta oPOS Installation and Administrator manuals).
+These databases must be properly running and configured without issues before installing uniCenta oPOS. uniCenta oPOS can be easily configured to connect to an alternative database at a later stage.
+
+Known Issues
+1. Upgrading from previous versions is not yet complete. You wil receive an error message
+2. Multiple Users adding product to a customer's table will not see all items for that table, only their items
+
+*** SOURCE CODE WILL NOT BE AVAILABLE UNTIL AFTER uniCenta oPOS v3 IS RELEASED FROM BETA ***
+
+uniCenta Team
+
+v3.0Beta1
+#1.  	Reports - Remove PRODUCTOUT Table references from legacy reports
+#2.  	Reports - JasperReports Library 4.5.1 upgrade
+#3.  	Reports - Payments Report - remove debt <0
+#4.  	Reports - CatalogueSales - Products * Units
+#5.  	Reports - Customer report - Barcode Card fix
+#6.  	Reports - People report - Barcode Card fix
+#7.  	Reports - Added Sale Catalog report
+#8.  	Reports - Restyle ALL report formats
+#9. 	Reports - Extended Product Sales - Fix to incorrect SQL - rpt:extproducts
+#10. 	Reports - Sales Catalogue - change to from Vertical to Horizontal detail flow - rpt:salescatalog
+#11. 	Reports - Product Labels - change to from Vertical to Horizontal detail flow - rpt:productlabels
+#12. 	Reports - Add new Customers List report
+#13. 	Reports - Category Sales Report - amnended to account for LineDiscount
+
+#14. 	Languages - Add Croation Locale
+#15. 	Languages - Add Estonian Locale
+
+#16. 	Libraries - Upgrade to Java Runtime 7 and Java JDK 7
+#17. 	Libraries - All Components Updated to latest
+#18. 	Libraries - Added pushingpixelslibrary Look & Feel library
+#19. 	Libraries - 13 New skins added. Now 38 available
+
+#20.  	Enhancements - Add All report End Date default to Today()
+#21. 	Enhancements - Code reviewed/Amended to switch, multicatch and try-with-resources functions + organize import headers + added @overrides
+#22. 	Enhancements - Code reviewed/Amended to Diamond Inference model
+#23. 	Enhancements - Add Employee Presence Management (EPM)
+#24. 	Enhancements - Add Employee Presence Management (EPM) Reports
+#25. 	Enhancements - Update ALL SQL scripts - for EPM
+#26. 	Enhancements - Increased Number Key pad sizing: adjust Category height for 800x600 mode
+#27. 	Enhancements - Increased Category Thumbnail sizing in Sales Screen
+#28. 	Enhancements - Added Small, Medium (Default), Large Product button size options
+#29. 	Enhancements - User Logon screen re-design - more visible Users
+#30. 	Enhancements - Cleaned-up; grouped and annotated Menu.Root script
+#31. 	Enhancements - Cleaned-up; grouped and annotated Button.Text script
+#32. 	Enhancements - Add Payment Change dialogue
+#33. 	Enhancements - Consolidate multiple Product Quantities into single Receipt line
+#34. 	Enhancements - Included Return (Cash Change) amount after Paymet settlement
+#35. 	Enhancements - Modified ProductsEditor form - Input order& resolves decimal rounding issue
+#36. 	Enhancements - Icon set - new plain introduced for better contrast across all Themes and improved User interpretation
+#37. 	Enhancements - Form components - resized (larger) to allow better control via touch interface - especially on Tablet devices
+
+#38. 	Bug Fixes - Correct error in PostgreSQL Create scripts
+#39. 	Bug Fixes - Correct error in HSQLDB Create scripts
+#40. 	Bug Fixes - Jasper Report Save to .xls bug fixed - Apache poi 3.80 libraries fixes issue
+#41.	Bug Fixes - JRViewer300 item object()
+Beta 3.01 - deprecated
+Beta 3.02
+#42.	Enhancements - icons - revamped some/created new icons + recolur all to blue for better visibilty across all (light & dark) themes
+#43. 	Bug Fixes - Restaurant - JTicketsBagRestaurantMapSQL statements re: Linux case value
+#44.	Enhancements - Service Charge script (Work In Progress)  
+#45.	Enhancements - Default Skin changed to org.pushingpixels.substance.api.skin.ModerateSkin instead of javax.swing....MetalLookAndFeel
+#46.	Bug Fixes - Employee Presence CheckIn/Out panel load error
+#47.	Enhancements - DB-create scripts updated
+#48.	Enhancements - Administrator; Manager; Employee Roles scripts updated
+
+
+

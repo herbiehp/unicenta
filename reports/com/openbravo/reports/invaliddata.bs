@@ -1,0 +1,45 @@
+//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
+//
+//    This file is part of uniCenta oPOS
+//
+//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
+
+
+// 
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.InvalidData");
+report.setReport("/com/openbravo/reports/invaliddata");
+report.setResourceBundle("com/openbravo/reports/invaliddata_messages");
+
+report.setSentence("SELECT CSVIMPORT.REFERENCE, CSVIMPORT.CODE,"+
+        "CSVIMPORT.NAME, CSVIMPORT.ROWNUMBER, CSVIMPORT.CSVERROR"+
+        " FROM CSVIMPORT WHERE (CSVERROR <> 'New product')  and "+
+        "(CSVERROR <> 'Updated Price Details') and (CSVERROR <>"+
+        " 'Missing data or Invalid number')");
+
+
+
+report.addField("reference", com.openbravo.data.loader.Datas.STRING);
+report.addField("code", com.openbravo.data.loader.Datas.STRING);
+report.addField("name", com.openbravo.data.loader.Datas.STRING);
+report.addField("rownumber", com.openbravo.data.loader.Datas.STRING);
+report.addField("csverror", com.openbravo.data.loader.Datas.STRING);
+
+
+report;

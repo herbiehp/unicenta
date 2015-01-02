@@ -1,0 +1,298 @@
+//ChangeLine
+import com.openbravo.format.Formats;
+import com.openbravo.pos.forms.DataLogicSales;
+import com.openbravo.data.loader.Session;
+import com.openbravo.pos.ticket.TicketLineInfo;
+import com.openbravo.pos.ticket.TicketProductInfo;
+import com.openbravo.pos.promotion.PromoInfo;
+//import com.openbravo.pos.sales.JPanelTicket;
+import java.util.List;
+import java.util.ArrayList;
+
+Session session = new Session(dbURL, dbUser, dbPassword);
+DataLogicSales logic = new DataLogicSales();
+logic.init(session);
+
+
+//javax.swing.JOptionPane.showMessageDialog(null, "Valeur :"+ticket.getLinesCount(), "Produit", JOptionPane.WARNING_MESSAGE);
+
+index = ticket.getLinesCount();
+if(index == null){
+    index = 0;
+}
+initialcount = index;
+indexinit = sales.getSelectedIndex();
+_promos = logic.getPromos();
+
+
+// if at least one promotion is detected + lines in the ticket, then we will build the :
+// --> ticket composition
+// --> Price list
+HashMap _ticketcomposition = new HashMap();
+if((_promos.length>0) && (index>0)) {
+    
+    for (int j = 0; j < index; j++) {
+        
+        _articleid = ticket.getLine(j).getProductID();
+        _quantite = ticket.getLine(j).getMultiply();
+        _number = _ticketcomposition.get(_articleid);
+        
+        if(_number!= null){
+            _ticketcomposition.put(_articleid, _number + _quantite);
+            }else{
+            _ticketcomposition.put(_articleid, _quantite);
+        }
+    }
+}
+
+if(index>0){
+    
+    _taxnormale = taxes.get("001");
+    
+    for (int i = 0; i < _promos.length;i++) {
+        _promo = _promos[i];
+        
+        switch(_promo.getType()){
+            case 1: // Discount %
+            if(_promo.getAmount() > 0.0){
+                if(_ticketcomposition != null){
+                    if(_promo.getArticle() != null){
+                        _number = _ticketcomposition.get(_promo.getArticle());
+                        if(_number != null){
+                            for (int j = 0; j < initialcount; j++) {
+                                if(ticket.getLine(j).getProductID().equals(_promo.getArticle())){
+                                    
+                                    line = ticket.getLine(j);
+                                    if (line.getProperty("nodiscount") == null){
+                                        
+                                        ticket.insertLine(ticket.getLinesCount(),
+                                        new TicketLineInfo(
+                                        "999001",
+                                        "DISCOUNT " + -_promo.getAmount() + "%",
+                                        "001",
+                                        line.getMultiply(),
+                                        -line.getPrice () * (_promo.getAmount()/100.0),
+                                        _taxnormale));
+                                        sales.setSelectedIndex(indexinit);
+                                        index = index + 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+            
+            case 2: // Discount $
+            if(_promo.getAmount() > 0.0){
+                if(_ticketcomposition != null){
+                    if(_promo.getArticle() != null){
+                        _number = _ticketcomposition.get(_promo.getArticle());
+                        if(_number != null){
+                            for (int j = 0; j < initialcount; j++) {
+                                if(ticket.getLine(j).getProductID().equals(_promo.getArticle())){
+                                    
+                                    line = ticket.getLine(j);
+                                    
+                                    if (line.getProperty("nodiscount") == null){
+                                        ticket.insertLine(ticket.getLinesCount(),
+                                        new TicketLineInfo(
+                                        "999002",
+                                        "DISCOUNT ",
+                                        "001",
+                                        line.getMultiply(),
+                                        -_promo.getAmount(),
+                                        _taxnormale));
+                                        sales.setSelectedIndex(indexinit);
+                                        index = index + 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+            case 3: // Gift/Coupon
+            if(_ticketcomposition != null){
+                if(_promo.getArticle() != null){
+                    _number = _ticketcomposition.get(_promo.getArticle());
+                    if(_number != null){
+                        if(_number >= _promo.getStepQuantity()){
+                            for (int j = 0; j < initialcount; j++) {
+                                if(ticket.getLine(j).getProductID().equals(_promo.getArticle())){
+                                    
+                                    line = ticket.getLine(j);
+                                    
+                                    if (line.getProperty("nodiscount") == null){
+                                        ticket.insertLine(ticket.getLinesCount(),
+                                        new TicketLineInfo(
+                                        _promo.getArticleBonus(),
+                                        _promo.getArticleBonusDescription(),
+                                        "001",
+                                        1,
+                                        0.00,
+                                        _taxnormale));
+                                        sales.setSelectedIndex(indexinit);
+                                        index = index + 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+            
+            case 4: // Get X% discount on lowest priced item
+            if(_ticketcomposition != null){
+                
+                HashMap _catcomposition = new HashMap();
+                _article = null;
+                _prix = null;
+                _catpromo = _promo.getArticleCategory();
+                // list price
+                for (int j = 0; j < index; j++) {
+                    if(ticket.getLine(j).getProductCategoryID() != null){
+                        if(ticket.getLine(j).getProductCategoryID().equals(_catpromo)){
+                            
+                            _articleid = ticket.getLine(j).getProductID();
+                            _unitprice = ticket.getLine(j).getPrice();
+                            if(_articleid != null){
+                                if(_catcomposition.get(_articleid) == null){
+                                    _catcomposition.put(_articleid, _unitprice);
+                                }
+                            }
+                        }
+                    }
+                }
+                // check for the cheapest article of the category
+                
+                if(_catcomposition.size() > 1){
+                    Iterator iter1 = _catcomposition.entrySet().iterator();
+                    
+                    while (iter1.hasNext()) {
+                        Map.Entry ent = (Map.Entry) iter1.next();
+                        _key = ent.getKey();
+                        Double _valeur = ent.getValue();
+                        
+                        if(_article != null){
+                            if(_valeur < _prix){
+                                _article = _key;
+                                _prix = _valeur;
+                            }
+                            } else {
+                            _article = _key;
+                            _prix = _valeur;
+                        }
+                    }
+                }
+                
+                
+                if(_catcomposition != null){
+                    
+                    if(_catcomposition.size() > 1){
+                        for (int j = 0; j < initialcount; j++) {
+                            if(ticket.getLine(j).getProductID().equals(_article)){
+                                
+                                line = ticket.getLine(j);
+                                
+                                if (line.getProperty("nodiscount") == null){
+                                    ticket.insertLine(ticket.getLinesCount(),
+                                    new TicketLineInfo(
+                                    "999004",
+                                    "DISCOUNT " + _promo.getAmount() + "%",
+                                    "001",
+                                    line.getMultiply(),
+                                    -line.getPrice() * (_promo.getAmount()/100.0),
+                                    _taxnormale));
+                                    sales.setSelectedIndex(indexinit);
+                                    index = index + 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+            
+            case 5: // mix'n'match buy 2 / get 3
+            if(_promo.getArticle() != null){
+                if(_ticketcomposition != null){
+                    
+                    _number = _ticketcomposition.get(_promo.getArticle());
+                    if(_number != null){
+                        
+                        _min = _promo.getMinQuantity();
+                        _min = _min + 1;
+                        if(_number >= _min){
+                            
+                            _qtyconsidered = _number;
+                            if(_number > _promo.getMaxQuantity()){
+                                _qtyconsidered = _promo.getMaxQuantity();
+                            }
+                            
+                            //calculation of the free product number
+                            _qtyfree = Math.floor(_qtyconsidered/_min);
+                            
+                            for (int j = 0; j < initialcount; j++) {
+                                
+                                
+                                if(ticket.getLine(j).getProductID().equals(_promo.getArticle())){
+                                    
+                                    line = ticket.getLine(j);
+                                    
+                                    if (line.getProperty("nodiscount") == null){
+                                        
+                                        ticket.insertLine(ticket.getLinesCount(),
+                                        new TicketLineInfo(
+                                        "999005",
+                                        line.getProductName() + " FREE",
+                                        "001",
+                                        _qtyfree,
+                                        -line.getPrice (),
+                                        _taxnormale));
+                                        sales.setSelectedIndex(indexinit);
+                                        index = index + 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+            case 6: // Discount % by Category
+            _catpromo = _promo.getArticleCategory();
+            if(_promo.getAmount() > 0.0){
+                if(_ticketcomposition != null){
+                    for (int j = 0; j < initialcount; j++) {
+                        if(ticket.getLine(j).getProductCategoryID().equals(_catpromo)){
+                            
+                            line = ticket.getLine(j);
+                            
+                            if (line.getProperty("nodiscount") == null){
+                                
+                                ticket.insertLine(ticket.getLinesCount(),
+                                new TicketLineInfo(
+                                "999001",
+                                "DISCOUNT " + -_promo.getAmount() + "%",
+                                "001",
+                                line.getMultiply(),
+                                -line.getPrice () * (_promo.getAmount()/100.0),
+                                _taxnormale));
+                                sales.setSelectedIndex(indexinit);
+                                index = index + 1;
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        }
+    }
+}

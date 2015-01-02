@@ -1,0 +1,68 @@
+//    Openbravo POS is a point of sales application designed for touch screens.
+//    Copyright (C) 2007-2014 Openbravo, S.L.
+//    http://www.openbravo.com/product/pos
+//
+//    This file is part of Openbravo POS.
+//
+//    Openbravo POS is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    Openbravo POS is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with Openbravo POS.  If not, see <http://www.gnu.org/licenses/>.
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.ClosedProducts");
+report.setReport("/com/openbravo/reports/closedproducts_1");
+report.setResourceBundle("com/openbravo/reports/closedproducts_messages");
+
+report.setSentence("SELECT " +
+            "CLOSEDCASH.HOST, " +
+            "CLOSEDCASH.DATESTART, " +
+            "CLOSEDCASH.DATEEND, " +
+            "taxes.NAME AS TAXNAME, " +
+            "products.REFERENCE, " +
+            "products.NAME, " +
+            "PRODUCTS.PRICESELL, " +
+            "Sum(ticketlines.UNITS) AS UNITS, " +
+            "Sum((TICKETLINES.PRICE+(TICKETLINES.PRICE*TAXES.RATE))*TICKETLINES.UNITS) AS TOTAL " +
+        "FROM (taxes INNER JOIN " +
+            "((products INNER JOIN " +
+            "(TICKETS INNER JOIN ticketlines ON TICKETS.ID = ticketlines.TICKET) " +
+            "ON products.ID = ticketlines.PRODUCT) " +
+            "INNER JOIN receipts ON TICKETS.ID = receipts.ID) " +
+            "ON taxes.ID = ticketlines.TAXID) INNER JOIN closedcash " +
+            "ON receipts.MONEY = closedcash.MONEY " +
+        "WHERE ?(QBF_FILTER) " +
+        "GROUP BY CLOSEDCASH.HOST, CLOSEDCASH.DATESTART, CLOSEDCASH.DATEEND, taxes.NAME, products.REFERENCE, products.NAME, PRODUCTS.PRICESELL " +
+        "ORDER BY CLOSEDCASH.HOST, taxes.NAME, products.NAME");
+
+report.addParameter("CLOSEDCASH.DATEEND");
+report.addParameter("CLOSEDCASH.DATEEND");
+
+paramdates = new com.openbravo.pos.reports.JParamsDatesInterval();
+
+paramdates.setStartDate(com.openbravo.beans.DateUtils.getToday());
+// JG - 8 Jan 14 paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
+paramdates.setEndDate(com.openbravo.beans.DateUtils.getTodayMinutes());
+
+report.addQBFFilter(paramdates);
+
+report.addField("HOST", com.openbravo.data.loader.Datas.STRING);
+report.addField("DATESTART", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("DATEEND", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("TAXNAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("REFERENCE", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("PRICE", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("UNITS", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+
+report;

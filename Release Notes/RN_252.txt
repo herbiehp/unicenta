@@ -1,0 +1,62 @@
+RELEASE Notes 2.52
+Date: 12 October 2010
+
+Installer: 
+Upgraded to Bitrock 6.5.4 Installer
+Incorrect path for Library files corrected
+new uniCenta oPOS Splash screen
+
+Drivers:
+Upgraded Jasper Report Driver to 3.7.5
+Developed & Compiled with latest netbeans 6.9 & components (Swing + Absolute Layout etc)
+
+Card Payments & Gateway:
+Luhn Algorithm now allows 15 digit number cards: Amex 
+
+Reports:
+Heading and other text alignments corrected
+
+Display:
+Fullscreen (was Window) now set as install default
+Ticket.Buttons: Default install value set to 190 for screen size set to 800x600
+
+Menu.Header:
+Line Discount button REM'd in Default install (to include un-REM statement line to display on Menu Header)
+Total Discount button REM'd in Default install (to include un-REM statement line to display on Menu Header)
+
+Start.bat:
+Removed concatenation. Content re-formatted
+
+Configure.bat
+Removed concatenation. Content re-formatted
+
+License files:
+Removed concatenation. Content re-formatted
+
+Openbravo POS Syncrhonisation: issues fixed
+    * 0009417 : Receipt printer does not work after upgrade from 2.30Beta to 2.30 - Fixed
+    * 0008862 : Print error with & symbol for warehouse in stock maintenance - Fixed
+    * 0009751 : Print error with '&' symbol for payments.printHost() in tickets
+    * 0009759 : Error when pressing "print" button for reports - Fixed
+    * 0009792 : The font size in the preview receipt of the edit sales panel is too small - Fixed
+    * 0009412 : "Regular Expression" filter is a partial string filter and does not work in product filter - Fixed
+    * 0009063 : No default info message for Atrributes not exisiting warning - Fixed
+    * 0009391 : Upgrade from Openbravo 2.0 to 2.30 process fails in MySQL - Fixed
+    * 0008015 : v2.30 beta PaymentsGateway.net needs reader Expiration Date reversed - Fixed 
+
+
+Known Issues: Windows 7:
+
+System Defaults:
+Not picking up System Defaults from Operating System OS in Configuration file options
+Resolution/Work-around: Delete - unicentaopos.properties
+
+Changes in Configuration parameters when in Main application sometimes generates Error Message that it Cannot be Saved.
+This is due to persistent Windows 7 file locking whilst main uniCenta oPOS application is open.
+Resolution: After Install.  Run uniCenta oPOS Configuration option (configure.bat) from Windows Start>Programs menu before starting main application.
+Make all subsequent changes using only uniCenta oPOS Configuration option (configure.bat) from Windows Start>Programs menu
+
+Reports:
+Save Report to Microsoft Excel Single or Multi-sheet file does not create an .xls output file.
+This is due to a Jasper report driver error.
+Resolution: Save file as .CSV and open using Microsoft Excel   

@@ -1,0 +1,46 @@
+uniCenta oPOS version 2.80Beta2
+September 2011
+
+This version includes all previous uniCenta oPOS upgrades including those from Openbravo 2.30_beta.
+
+Advisory: *** uniCenta oPOS 2.80Beta2 should not be used to upgrade an existing live system ***
+
+2.80Beta2
+#1.     Stock Check - Inventory Minimum check during Sale 
+#2.     Clock -  Real Time Clock based on machine's Time
+#3.     Restaurant mode - Add Waiter Name to Sale, different to Person logged in
+#4.     Product As a Service - Sets Product to not deduct/add to Inventory in Sale which also allows for #5;
+#5.     Customer PrePay - using #4 for i.e.; a Product item to allow for Customer negative debt/Pre-pay Voucher
+#6.     Sales screen - Allows Product Returns directly in Sales screen and produce a Refund receipt
+#7.     CashIn/CashOut - Note field added
+#8.     Customer Debt Payment - Payment to Bank option added
+#9.     BugFix - Customer Diary Report Date
+#10.    Updated SQL Create and Update Scripts for all DB's (Derby Embedded & Client/Server, HSQLDB, MySQL, Oracle and PostgreSQL)
+#11.    Linux Installer
+#12.    Apple Mac OSX Installer 
+
+
+2.70 - Internal only
+#1.	Language Pack - Locales
+#2.	Linux installer - Work In Progress pushed to v3.0
+#3.	Apple OSX installer - Work In Progress pushed to v3.0
+
+
+2.60
+#1.	Continuing Bug Fixes
+#2.	New User interface icons
+#3.	Additional report - Profit
+#4.	Kitchen Printing
+#5.	Amended pos_messages.properties
+#6.	Test. OK. MySQL version 5.5 and latest MySQL JDBC Driver
+#7.	SQL Create and Update Scripts update for all DB's (Derby Embedded & Client/Server, HSQLDB, MySQL, Oracle and PostgreSQL)
+
+
+
+uniCenta oPOS ships with the Apache Derby Embedded (default) database for a single, local installation. 
+The database is installed, by default, in the C:\Documents and Settings\yourprofilename\unicentaopos-database directory.
+uniCenta oPOS also supports multiple Point Of Sale terminals across a network. 
+In this case you will need to install a multi-user database such Derby Network Client\Server version, MySQL, Postgres or Oracle - (see uniCenta oPOS Installation and Administrator manuals).
+These databases must be properly running and configured without issues before installing uniCenta oPOS. uniCenta oPOS can be easily configured to connect to an alternative database at a later stage.
+
+uniCenta Team
