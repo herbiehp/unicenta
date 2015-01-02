@@ -1,29 +1,31 @@
-04 October 2014
-Release: v3.80
+Reference: uniCenta.com
 Author: Jack Gerrard
 
-v3.80 contains further bug-fixes and Enhancement of v3.70
+v3.81 Is a direct replacement for v3.80 - Apache Derby database driver rolled-back to 10.10
 
-********* UPGRADING? *********
-v3.80 requires v3.70 to be be installed first
-v3.70 requires v3.60
-If you try to upgrade from an ealier version then you will run into problems.
+v3.80 Is a deprecated release. No source code available.
+Apache Derby 10.11 caused known issue (Apache Derby forums) with Auto-Increment fields
 
-THIS APPLIES TO UPGRADES ONLY!
-***********************************************************
+********************************************************************************
 
-********* KNOWN ISSUES *********
-1.  There is a known issue with HSQLDB 2.n driver which does not handle BLOB
-    (Categories, Products, Customers, People) correctly
-    It causes an error when loading Sales panel - Clicking OK allows you to
-    continue seemingly with no adverse effect
-    Adding Images to (Categories, Products, Customers, People) forms is not
-    affected.
-    Suggestion: avoid HSQLDB database for now or revert to older 1.8 driver
+v3.90 SOURCE CODE IS NOT AVAILABLE! 
+
+Use v3.81 if you do not need digital receipt functionality.
+
+posApps Digital Receipt plugin app' is totally independent of uniCenta oPOS and exists as a separate jar file. No uniCenta oPOS source code has been changed or  affected.
+
+THE ONLY DIFFERENCE BETWEEN V3.90 AND v3.81 IS THAT v3.90 IS DELIVERED WITH OUR posApps Digital Receipt plugin library jar and change to Ticket.Close script - which is available from http://www.posapps.io 
 
 
-***********************************************************
+Please see - http://www.posapps.io for more information
 
+********************************************************************************
+
+3.81
+1.  Bug: Ticket and Pickup auto-numbering incrementing +100 on each restart 
+    Fix: Revert Apache Derby 10.11 derby.jar to version 10.10.2
+
+3.80
 1.  Bug: Customer Find - Telephone SQL field criteria incorrect - returning PHONE2
     Fix: Correct SQL statement to return PHONE
 2.  Bug: Categories Display Name in panel checkbox ineffective
@@ -72,7 +74,3 @@ THIS APPLIES TO UPGRADES ONLY!
 31. Enhancement: Printer.Ticket + Printer.TicketPreview - Add Hostmachine/Terminal name
 32. Enhancement: User : Ticket : Customer now shown in current ticket display
 33. Enhancement: User : Ticket : Customer now shown in Layaway list
-
-
-
-
